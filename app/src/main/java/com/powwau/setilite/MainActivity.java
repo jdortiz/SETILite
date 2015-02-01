@@ -8,8 +8,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -68,8 +70,16 @@ public class MainActivity extends ActionBarActivity {
             String [] starNames = getActivity().getResources().getStringArray(R.array.stars);
             ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
                     R.layout.list_item_entry, R.id.text_view_entry, starNames);
-            ListView listView = (ListView)rootView.findViewById(R.id.listview);
+            final ListView listView = (ListView)rootView.findViewById(R.id.listview);
             listView.setAdapter(adapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    String starName = (String)parent.getItemAtPosition(position);
+                    String message = String.format(getString(R.string.message_received), starName);
+                    Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+                }
+            });
         }
     }
 }
