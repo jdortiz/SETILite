@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -55,7 +60,18 @@ public class MainActivity extends ActionBarActivity {
      */
     public static class StarsListFragment extends Fragment {
 
+        String [] mStarNames;
+        Random mRandom;
+        ArrayAdapter<SignalData> mAdapter;
+
         public StarsListFragment() {
+            mRandom = new Random();
+        }
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setHasOptionsMenu(true);
         }
 
         @Override
@@ -67,19 +83,47 @@ public class MainActivity extends ActionBarActivity {
         }
 
         private void prepareListView(View rootView) {
-            String [] starNames = getActivity().getResources().getStringArray(R.array.stars);
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(),
-                    R.layout.list_item_entry, R.id.text_view_entry, starNames);
+            mStarNames = getActivity().getResources().getStringArray(R.array.stars);
+            List<SignalData> entries = new ArrayList<>();
+            mAdapter = new ArrayAdapter<>(getActivity(),
+                    R.layout.list_item_entry, R.id.text_view_entry, entries);
             final ListView listView = (ListView)rootView.findViewById(R.id.listview);
-            listView.setAdapter(adapter);
+            listView.setAdapter(mAdapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    String starName = (String)parent.getItemAtPosition(position);
+                    String starName = parent.getItemAtPosition(position).toString();
                     String message = String.format(getString(R.string.message_received), starName);
                     Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
                 }
             });
+        }
+
+        @Override
+        public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+            super.onCreateOptionsMenu(menu, inflater);
+            inflater.inflate(R.menu.menu_fragment_stars_list, menu);
+        }
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            int id = item.getItemId();
+            Boolean handled = false;
+            switch (id) {
+                case R.id.action_add:
+                    addSignalData();
+                    handled = true;
+                    break;
+            }
+            if (!handled) {
+                handled = super.onOptionsItemSelected(item);
+            }
+            return handled;
+        }
+
+        private void addSignalData() {
+            SignalData signalData = new SignalData(getActivity(), mStarNames[mRandom.nextInt(mStarNames.length)]);
+            mAdapter.add(signalData);
         }
     }
 }

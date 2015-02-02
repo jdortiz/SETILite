@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="signal_data_string" formatted="false">Signal received from star %s with probability of life: %s</string>
+    <string name="probability_none">None</string>
+    <string name="probability_minimal">Minimal</string>
+    <string name="probability_low">Low</string>
+    <string name="probability_some">Some</string>
+    <string name="probability_got_it">Significant</string>
+
+</resources>
