@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-          android:id="@+id/text_view_entry"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:textAppearance="?android:attr/textAppearanceLarge"
-          android:padding="16dp"/>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:padding="16dp"
+              android:orientation="vertical">
+
+    <TextView android:id="@+id/text_view_star_name"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView android:id="@+id/text_view_probability"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:textAppearance="?android:attr/textAppearanceSmall" />
+
+</LinearLayout>

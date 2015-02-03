@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -62,7 +61,7 @@ public class MainActivity extends ActionBarActivity {
 
         String [] mStarNames;
         Random mRandom;
-        ArrayAdapter<SignalData> mAdapter;
+        SignalDataAdapter mAdapter;
 
         public StarsListFragment() {
             mRandom = new Random();
@@ -85,9 +84,8 @@ public class MainActivity extends ActionBarActivity {
         private void prepareListView(View rootView) {
             mStarNames = getActivity().getResources().getStringArray(R.array.stars);
             List<SignalData> entries = new ArrayList<>();
-            mAdapter = new ArrayAdapter<>(getActivity(),
-                    R.layout.list_item_entry, R.id.text_view_entry, entries);
-            final ListView listView = (ListView)rootView.findViewById(R.id.listview);
+            mAdapter = new SignalDataAdapter(getActivity(), entries);
+            ListView listView = (ListView)rootView.findViewById(R.id.listview);
             listView.setAdapter(mAdapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
