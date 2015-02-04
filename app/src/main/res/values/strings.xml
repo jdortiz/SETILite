@@ -4,5 +4,8 @@
     <string name="app_name">SETILite</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="message_received">Message received from %s</string>
+    <string name="action_add">Add</string>
+    <string name="text_view_no_signal_yet">No signal yet.</string>
 
 </resources>
